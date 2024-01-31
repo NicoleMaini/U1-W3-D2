@@ -126,8 +126,8 @@
       console.log("Es 4: completato");
 
       /* ESERCIZIO 5
-        Scrivi una funzione che aggiunga un nuovo elemento lista alla seconda lista non ordinata
-        */
+      Scrivi una funzione che aggiunga un nuovo elemento lista alla seconda lista non ordinata
+      */
 
       const addToTheSecond = function (text) {
         const elementsList = document.querySelector("#secondList");
@@ -165,7 +165,7 @@
 
       /* ESERCIZIO 8
            Scrivi una funzione che renda verde il background di ogni lista non ordinata
-          */
+           */
 
       const paintItGreen = function () {
         const allUl = document.querySelectorAll("ul");
@@ -180,15 +180,15 @@
            Scrivi una funzione che rimuova l'ultima lettera dall'h1 ogni volta che l'utente lo clicca
           */
 
-      // const makeItClickable = function () {
-      //   let h1 = document.querySelector("h1");
-      //   h1.onclick = function () {
-      //     h1 = h1.innerText.length - 2;
-      //   };
-      // };
+      const makeItClickable = function () {
+        let h1 = document.querySelector("h1");
+        h1.onclick = function () {
+          h1.innerText = h1.innerText.slice(0, -1);
+        };
+      };
 
-      // makeItClickable();
-      // console.log("Es 9: completato");
+      makeItClickable();
+      console.log("Es 9: completato");
 
       /* ESERCIZIO 10
           Crea una funzione che, al click sul footer, riveli l'URL del link interno come contenuto di un alert()
@@ -197,44 +197,99 @@
       const revealFooterLink = function () {
         const footer = document.querySelector("footer");
         footer.onclick = function () {
-          alert(footer.querySelector("footer h3 a"));
+          alert(`Questo è l'url del link del footer: ${footer.querySelector("h3 a").href}`);
         };
       };
 
       revealFooterLink();
 
-      /* ESERCIZIO 11
-        Crea una funzione che crei una tabella nell'elemento con id "tableArea".
-        La tabella avrà 5 elementi e questa struttura: immagine, nome prodotto, quantità, prezzo
-        */
+      const addRow = function (imgUrl, imgAlt, name, qty, price) {
+        const table = document.querySelector("table");
+        const tBody = table.querySelector("tbody");
 
-      const elementsHeaderTable = ["immagine", "nome prodotto", "quantità", "prezzo"];
-      const generateTable = function (a, array) {
-        let table = "<table border='1'>";
-        for (let i = 0; i < a; i++) {
-          table += "<tr>";
-          for (let m = 0; m < array.length; m++) {
-            table += "<td>" + array[m] + "</td>";
-          }
-          table += "</tr>";
-        }
-        table += "</table>";
-        document.getElementById("tableArea").innerHTML = table;
+        const tr2 = document.createElement("tr");
+
+        // genero il singolo dato per una colonna
+        const dataImg = document.createElement("td");
+        const img = document.createElement("img");
+        img.src = imgUrl;
+        img.alt = imgAlt;
+        img.width = "200";
+        dataImg.appendChild(img);
+
+        // genero il singolo dato per una colonna
+        const dataName = document.createElement("td");
+        dataName.innerText = name;
+
+        // genero il singolo dato per una colonna
+        const dataQty = document.createElement("td");
+        dataQty.innerText = qty;
+
+        // genero il singolo dato per una colonna
+        const dataPrice = document.createElement("td");
+        dataPrice.innerText = price + "€";
+
+        tr2.appendChild(dataImg);
+        tr2.appendChild(dataName);
+        tr2.appendChild(dataQty);
+        tr2.appendChild(dataPrice);
+
+        tBody.appendChild(tr2);
       };
-      generateTable(5, elementsHeaderTable);
+
+      const generateTable = function () {
+        const tableContainer = document.getElementById("tableArea");
+
+        const table = document.createElement("table");
+        const thead = document.createElement("thead");
+        const tr1 = document.createElement("tr");
+
+        const hElements = ["immagine", "nome prodotto", "quantità", "prezzo"];
+
+        // for (let i = 0; i < hElements.length; i++) {
+        //   const th = document.createElement("th")
+        //   const elementStr = hElements[i]
+
+        //   tr1.appendChild(th)
+        // }
+
+        // generazione dinamica degli elementi di intestazione
+        hElements.forEach(elementStr => {
+          const th = document.createElement("th");
+          th.innerText = elementStr;
+
+          tr1.appendChild(th);
+        });
+
+        const tBody = document.createElement("tbody");
+
+        thead.appendChild(tr1);
+        table.appendChild(thead);
+        table.appendChild(tBody);
+        tableContainer.appendChild(table);
+
+        addRow(
+          "https://images.unsplash.com/photo-1706550037547-ead67be5816e?q=80&w=1998&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "baby in the woods",
+          "picture",
+          1,
+          1500
+        );
+      };
+
+      generateTable();
 
       /* ESERCIZIO 12
-          Crea una funzione che aggiunga una riga alla tabella precedentemente creata e fornisca i dati necessari come parametri
-        */
+     Crea una funzione che aggiunga una riga alla tabella precedentemente creata e fornisca i dati necessari come parametri
+  */
 
-      // const addRow = function () {
-      //   const tr = document.createElement("tr");
-      //   const table = document.getElementById(tableArea);
-      //   table.appendChild(tr);
-      // };
-
-      // addRow();
-
+      addRow(
+        "https://images.unsplash.com/photo-1706606991536-e39841f5f598?q=80&w=2030&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "scottish landscape",
+        "house",
+        1,
+        "400000"
+      );
       /* ESERCIZIO 14
           Crea una funzione che nasconda le immagini della tabella quando eseguita
         */
